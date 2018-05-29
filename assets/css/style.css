@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h1 {
+    font-size: 6rem;
+}
+
+h2 {
+    font-size: 3.2rem;
+}
+
+/* INTERACTIVE CHARACTER ROWS */
+
+.your-character-container, .enemies-row-container, .defender-row-container {
+    /* max-width: 960px; */
+    min-width: 875px; /*20px outer margins, 10px inner margins, 200px pictures(x4) = 870px*/
+    height: 180px; /*imgs will be 200w 140h 20hCAPTIONS 20hPADDING */
+    background-color: rgba(0,0,0,0.25);
+}
+
+.character-row, .enemies-row, .defender-row {
+    display: inline-block;
+    width: 860px;
+    height: 165px;
+    margin: 10px 20px 10px 20px;
+    border: 2px dashed darkmagenta;
+}
+
+/*PLAYER CARDS */
+.img-container {
+    display: inline-block;
+    width: 200px;
+    height: 180px;
+    margin-right: 10px;
+}
+
+main img {
+    width: 200px;
+}
+
+.char-name {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 200px;
+    font-size: 2rem;
+    text-align: center;
+    background-color: white;
+    opacity: 0.85;
+}
