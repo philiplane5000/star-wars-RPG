@@ -57,7 +57,7 @@ main {
 .img-container {
     display: inline-block;
     width: 200px;
-    height: 180px;
+    height: 160px;
     margin-right: 10px;
 }
 
@@ -68,10 +68,15 @@ main img {
 .char-name {
     position: relative;
     left: 0;
-    bottom: 0;
+    top: 0;
+    height: 20px;
     width: 200px;
     font-size: 2rem;
     text-align: center;
-    background-color: white;
+    /* background-color: white; */
     opacity: 0.85;
+}
+
+.selected {
+    background-color: green;
 }
