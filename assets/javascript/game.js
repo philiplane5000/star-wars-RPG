@@ -15,9 +15,9 @@ let $characterCards = $('.img-container');
 let $enemiesRow = $('.enemies-row');
 
 //CONTINUE TESTING NEXT TIME:
-$enemiesRow.html("<div class="img-container"><div class="char-name">" + anakinData[0] + "</div>
-<img src="./assets/images/sheev-palpatine-resized.png" alt="sheev-palpatine">
-</div>"")
+// $enemiesRow.html("<div class="img-container"><div class="char-name">" + anakinData[0] + "</div>
+// <img src="./assets/images/sheev-palpatine-resized.png" alt="sheev-palpatine">
+// </div>"")
 
 
 
