@@ -12,6 +12,7 @@ h1 {
 }
 
 h2 {
+    display: inline-block;
     font-size: 3.2rem;
     padding: 1.6rem;
 }
@@ -68,6 +69,18 @@ main {
 
 .enemy {
     background-color: red;
+}
+
+.defender {
+    background-color: darkred;
+}
+
+.removed {
+    display: none;
+}
+
+.invisible {
+    visibility: hidden;
 }
 
 main img {

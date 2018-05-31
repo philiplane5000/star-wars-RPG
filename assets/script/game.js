@@ -11,6 +11,7 @@ $('document').ready(function () {
         let allChars   = [yoda, leia, anakin, sheev];
         let playerChar = [];
         let enemyChars = [];
+        let defenderChar = [];
 
         //ROW TARGETS:
         let $topRow    = $('.top-row');
@@ -19,8 +20,8 @@ $('document').ready(function () {
 
         cardsToBoard(allChars, $topRow);
 
-        //CLICK LISTENERS:
-        $('.yoda').on('click', function () {
+        //CHOOSE CHARACTER CLICK LISTENERS:
+        $('.yoda').one('click', function () {
                 let playerChar = [yoda];
                 let enemyChars = [leia, anakin, sheev];
                 clearRow($topRow);
@@ -30,11 +31,10 @@ $('document').ready(function () {
                 $('.anakin').addClass('enemy');
                 $('.sheev').addClass('enemy');
                 $('.leia').addClass('enemy');
-                updateBoard();
-
+                updateArrays(yoda, leia, anakin, sheev);
         });
 
-        $('.leia').on('click', function () {
+        $('.leia').one('click', function () {
                 let playerChar = [leia];
                 let enemyChars = [yoda, anakin, sheev];
                 clearRow($topRow);
@@ -44,11 +44,10 @@ $('document').ready(function () {
                 $('.yoda').addClass('enemy');
                 $('.anakin').addClass('enemy');
                 $('.sheev').addClass('enemy');
-                updateBoard();
-
+                updateArrays(leia, yoda, anakin, sheev, null);
         });
 
-       $('.anakin').on('click', function () {
+       $('.anakin').one('click', function () {
                 let playerChar = [anakin];
                 let enemyChars = [yoda, leia, sheev];
                 clearRow($topRow);
@@ -58,11 +57,10 @@ $('document').ready(function () {
                 $('.leia').addClass('enemy');
                 $('.yoda').addClass('enemy');
                 $('.sheev').addClass('enemy');
-                updateBoard();
-
+                updateArrays(anakin, yoda, leia, sheev, null);
         });
 
-        $('.sheev').on('click', function () {
+        $('.sheev').one('click', function () {
                 let playerChar = [sheev];
                 let enemyChars = [leia, anakin, yoda];
                 clearRow($topRow);
@@ -72,16 +70,31 @@ $('document').ready(function () {
                 $('.anakin').addClass('enemy');
                 $('.leia').addClass('enemy');
                 $('.yoda').addClass('enemy');
-                updateBoard();
+                updateArrays(sheev, leia, anakin, yoda, null);
         });
-        
-        function updateBoard(){
-        //UPDATE ARRAYS TO REFLECT NEW PLAYERS AND ENEMIES(?)
-        }
 
-        function clearRow(target) {
-                target.empty();
-        }
+        //CHOOSE DEFENDER CLICK LISTENERS:
+
+        $('body').on('click', '.enemy', function() {
+                let htmlData = $(this).html();
+                if(htmlData.includes('yoda')){
+                        if(defenderChar.length > 0){
+                        alert('defender already in position');
+                        return;
+                        } else {
+                        $('.yoda').addClass('removed');
+                        defenderChar.push(yoda);
+                        clearRow($bottomRow);
+                        cardsToBoard(defenderChar, $bottomRow);
+                        $('.yoda').addClass('defender');
+                        $('.attack').removeClass('invisible');
+                        }
+                } else {console.log('no yoda')}
+
+
+
+
+        });
 
         //USE JQUERY TO BUILD PLAYER CARDS ON SCREEN USING CHARACTER INSTANCES:
         //BUILD A FOR LOOP (OR FOR EACH?) THAT WILL ACCESS allChars[i] AND PLACE THE CARDS ON PAGE:
@@ -91,7 +104,7 @@ $('document').ready(function () {
                         for (let i = 0; i < arr.length; i++) {
                                 //BUILDING PLAYER CARD HTML AND APPLYING APPROPRIATE CLASSES:
                                 let $playerCard = $('<div>').addClass('player-card ' + arr[i].className);
-                                let $playerName = $('<div>').addClass('char-name').html(arr[i].name.toUpperCase());
+                                let $playerName = $('<div>').addClass('char-name').html(arr[i].name);
                                 let $playerImage = $('<img>').attr('src', arr[i].imageURL);
                                 let $playerHP = $('<div>').addClass('hp').html(arr[i].HP + 'HP');
 
@@ -103,9 +116,10 @@ $('document').ready(function () {
                                 //APPEND CARDS TO BOARD AT TARGET:
                                 target.append($playerCard);
                         }
-                } else {
+                } else if ((typeof arr) === 'object') {
+                        console.log('one object');
                         let $playerCard = $('<div>').addClass('player-card ' + arr[0].className);
-                        let $playerName = $('<div>').addClass('char-name').html(arr[0].name.toUpperCase());
+                        let $playerName = $('<div>').addClass('char-name').html(arr[0].name);
                         let $playerImage = $('<img>').attr('src', arr[0].imageURL);
                         let $playerHP = $('<div>').addClass('hp').html(arr[0].HP + 'HP');
 
@@ -116,8 +130,21 @@ $('document').ready(function () {
 
                         //APPEND CARDS TO BOARD AT TARGET:
                         target.append($playerCard);
+                } else { console.log('neither of the above');
+
                 }
         }
+
+        function updateArrays(player, enemyOne, enemyTwo, enemyThree, defender){
+                let playerChar   = [player];
+                let enemyChars   = [enemyOne, enemyTwo, enemyThree];
+                let defenderChar = [defender];
+        }
+
+        function clearRow(target) {
+                target.empty();
+        }
+
 
         //CONSTRUCTOR FUNCTION:       
         function CreateCharacter(name, className, imageURL, HP, AP) {
