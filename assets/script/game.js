@@ -2,20 +2,18 @@ console.log("CONNECTED");
 
 $('document').ready(function () {
 
-
-
-        //INSTANTIATION FROM CONSTRUCTOR:
+        //INSTANTIATION FROM CONSTRUCTOR (BOTTOM OF SCRIPT):
         let yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 90, 6);
         let leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 100, 7);
         let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 140, 9);
         let sheev  = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 13);
 
-        let allChars = [yoda, leia, anakin, sheev];
+        let allChars   = [yoda, leia, anakin, sheev];
         let playerChar = [];
         let enemyChars = [];
 
         //ROW TARGETS:
-        let $topRow = $('.top-row');
+        let $topRow    = $('.top-row');
         let $middleRow = $('.middle-row');
         let $bottomRow = $('.bottom-row');
 
@@ -28,7 +26,12 @@ $('document').ready(function () {
                 clearRow($topRow);
                 cardsToBoard(playerChar, $topRow);
                 cardsToBoard(enemyChars, $middleRow);
-                $('.yoda').addClass('selected');
+                $('.yoda').addClass('selected player');
+                $('.anakin').addClass('enemy');
+                $('.sheev').addClass('enemy');
+                $('.leia').addClass('enemy');
+                updateBoard();
+
         });
 
         $('.leia').on('click', function () {
@@ -37,7 +40,12 @@ $('document').ready(function () {
                 clearRow($topRow);
                 cardsToBoard(playerChar, $topRow);
                 cardsToBoard(enemyChars, $middleRow);
-                $('.leia').addClass('selected');
+                $('.leia').addClass('player');
+                $('.yoda').addClass('enemy');
+                $('.anakin').addClass('enemy');
+                $('.sheev').addClass('enemy');
+                updateBoard();
+
         });
 
        $('.anakin').on('click', function () {
@@ -46,7 +54,12 @@ $('document').ready(function () {
                 clearRow($topRow);
                 cardsToBoard(playerChar, $topRow);
                 cardsToBoard(enemyChars, $middleRow);
-                $('.anakin').addClass('selected');
+                $('.anakin').addClass('player');
+                $('.leia').addClass('enemy');
+                $('.yoda').addClass('enemy');
+                $('.sheev').addClass('enemy');
+                updateBoard();
+
         });
 
         $('.sheev').on('click', function () {
@@ -55,18 +68,23 @@ $('document').ready(function () {
                 clearRow($topRow);
                 cardsToBoard(playerChar, $topRow);
                 cardsToBoard(enemyChars, $middleRow);
-                $('.sheev').addClass('selected');
+                $('.sheev').addClass('player');
+                $('.anakin').addClass('enemy');
+                $('.leia').addClass('enemy');
+                $('.yoda').addClass('enemy');
+                updateBoard();
         });
         
+        function updateBoard(){
+        //UPDATE ARRAYS TO REFLECT NEW PLAYERS AND ENEMIES(?)
+        }
 
-        
-
-
-        //USE JQUERY TO BUILD PLAYER CARDS ON SCREEN USING CHARACTER INSTANCES:
-        //BUILD A FOR LOOP (OR FOR EACH?) THAT WILL ACCESS allChars[i] AND PLACE THE CARDS ON PAGE:
         function clearRow(target) {
                 target.empty();
         }
+
+        //USE JQUERY TO BUILD PLAYER CARDS ON SCREEN USING CHARACTER INSTANCES:
+        //BUILD A FOR LOOP (OR FOR EACH?) THAT WILL ACCESS allChars[i] AND PLACE THE CARDS ON PAGE:
 
         function cardsToBoard(arr, target) {
                 if (arr.length > 1) {
@@ -100,6 +118,7 @@ $('document').ready(function () {
                         target.append($playerCard);
                 }
         }
+
         //CONSTRUCTOR FUNCTION:       
         function CreateCharacter(name, className, imageURL, HP, AP) {
                 this.name = name;
@@ -109,7 +128,7 @@ $('document').ready(function () {
                 this.AP = AP;
                 this.greeting = function () {
                         console.log('Hi! I\'m ' + this.name + '. ' + 'My HP: ' + this.HP + ' My AP: ' + AP + ' ClassName: ' + this.className);
-                };
+                }
         }
 
 

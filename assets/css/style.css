@@ -46,8 +46,9 @@ main {
     margin: 0 auto;
     width: 860px;
     height: 205px;
+    padding: 10px;
     /* margin: 10px 20px 10px 20px; */
-    border: 2px dashed darkmagenta;
+    /* border: 2px dashed darkmagenta; */
 }
 
 /*PLAYER CARDS */
@@ -61,8 +62,12 @@ main {
     border-radius: 5px;
 }
 
-.selected {
+.player {
     background-color: green;
+}
+
+.enemy {
+    background-color: red;
 }
 
 main img {
