@@ -105,7 +105,7 @@ main img {
     opacity: 0.85;
 }
 
-.hp {
+.hp-yoda, .hp-leia, .hp-anakin, .hp-sheev {
     padding-top: 7.5px;
     text-align: center;
     font-size: 1.6rem;

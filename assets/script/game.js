@@ -3,10 +3,10 @@ console.log("CONNECTED");
 $('document').ready(function () {
 
         //INSTANTIATION FROM CONSTRUCTOR (BOTTOM OF SCRIPT):
-        let yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 90, 6);
-        let leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 100, 7);
-        let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 140, 9);
-        let sheev  = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 13);
+        let yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 90, 12);
+        let leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 100, 8);
+        let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 140, 15);
+        let sheev  = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 25);
 
         let allChars   = [yoda, leia, anakin, sheev];
         let playerChar = [];
@@ -126,22 +126,34 @@ $('document').ready(function () {
                                 $('.attack').removeClass('invisible');
                         }
                 } 
-                        /* MUST BE SOME WAY TO USE SWITCH STATEMENT INSTEAD OF ABOVE: */
-                        // switch(htmlData.toString()) {
-                        //         case (htmlData.includes('yoda')):
-                        //                 console.log('yoda');
-                        //                 break;
-                        //         case (htmlData.includes('leia')):
-                        //                 console.log('leia');
-                        //                 break;
-                        //         case (htmlData.includes('sheev')):
-                        //                 console.log('sheev');
-                        //                 break;
-                        //         case (htmlData.includes('anakin')):
-                        //                 console.log('anakin');
-                        //                 break;
-                        // }
                 }) /*end enemy click listener*/
+
+        //ATTACK BUTTON CLICK LISTENER:
+
+        $('.attack').on('click', function() {
+                let playerFullName = playerChar[0].name; /*for game updates*/
+                let playerClassName = playerChar[0].className;
+                let baseAttack = playerChar[0].baseAP;
+
+                let defenderFullName = defenderChar[0].name; /*for game updates*/
+                let defenderClassName = defenderChar[0].className;
+                let defenderBaseAttack = defenderChar[0].AP;
+
+                playerChar[0].HP -= defenderChar[0].AP; /*defender attacks*/
+                console.log(`${defenderFullName} attacked you for ${defenderBaseAttack}hp damage!`);
+                defenderChar[0].HP -= playerChar[0].AP; /*player attacks*/
+                console.log(`You attacked ${defenderFullName} for ${playerChar[0].AP}hp damage!`);
+                playerChar[0].AP += baseAttack; /*player AP increased by baseAttack*/
+
+                //REFLECT DAMAGE TO PLAYERCHAR:
+                $(`.hp-${playerClassName}`).text(playerChar[0].HP + "HP"); 
+
+                //REFLECT DAMAGE TO DEFENDERCHAR:
+                $(`.hp-${defenderClassName}`).text(defenderChar[0].HP + "HP"); 
+
+                //functions on bottom to check if player or enemy is dead
+                //reset board or arrays to allow for second enemy choice or prompt "GAME OVER" / "WINNER" accordingly
+        })
 
         //USE JQUERY TO BUILD PLAYER CARDS ON SCREEN USING CHARACTER INSTANCES:
         //BUILD A FOR LOOP (OR FOR EACH?) THAT WILL ACCESS allChars[i] AND PLACE THE CARDS ON PAGE:
@@ -153,7 +165,7 @@ $('document').ready(function () {
                                 let $playerCard = $('<div>').addClass('player-card ' + arr[i].className);
                                 let $playerName = $('<div>').addClass('char-name').html(arr[i].name);
                                 let $playerImage = $('<img>').attr('src', arr[i].imageURL);
-                                let $playerHP = $('<div>').addClass('hp').html(arr[i].HP + 'HP');
+                                let $playerHP = $('<div>').addClass(`hp-${arr[i].className}`).html(arr[i].HP + 'HP');
 
                                 //PLACE PLAYER CARDS ATTRIBUTES ON CARD:
                                 $playerCard.append($playerName);
@@ -167,7 +179,7 @@ $('document').ready(function () {
                         let $playerCard = $('<div>').addClass('player-card ' + arr[0].className);
                         let $playerName = $('<div>').addClass('char-name').html(arr[0].name);
                         let $playerImage = $('<img>').attr('src', arr[0].imageURL);
-                        let $playerHP = $('<div>').addClass('hp').html(arr[0].HP + 'HP');
+                        let $playerHP = $('<div>').addClass(`hp-${arr[0].className}`).html(arr[0].HP + 'HP');
 
                         //PLACE PLAYER CARDS ATTRIBUTES ON CARD:
                         $playerCard.append($playerName);
@@ -199,6 +211,7 @@ $('document').ready(function () {
                 this.imageURL = imageURL;
                 this.HP = HP;
                 this.AP = AP;
+                this.baseAP = AP;
                 this.greeting = function () {
                         console.log('Hi! I\'m ' + this.name + '. ' + 'My HP: ' + this.HP + ' My AP: ' + AP + ' ClassName: ' + this.className);
                 }
