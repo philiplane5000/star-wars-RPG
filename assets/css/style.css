@@ -111,3 +111,8 @@ main img {
     font-size: 1.6rem;
     line-height: 20px;
 }
+
+.commentary-box {
+    display: inline-block;
+    margin-left: 20px;
+}

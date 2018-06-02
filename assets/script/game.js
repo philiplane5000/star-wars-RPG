@@ -3,26 +3,27 @@ console.log("CONNECTED");
 $('document').ready(function () {
 
         //INSTANTIATION FROM CONSTRUCTOR (BOTTOM OF SCRIPT):
-        let yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 115, 16);
-        let leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 100, 8);
+        let yoda = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 115, 16);
+        let leia = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 100, 8);
         let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 140, 15);
-        let sheev  = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 25);
+        let sheev = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 25);
 
-        let allChars   = [yoda, leia, anakin, sheev];
+        let allChars = [yoda, leia, anakin, sheev];
         let playerChar = [];
         let enemyChars = [];
         let defenderChar = [];
 
         //ROW TARGETS:
-        let $topRow    = $('.top-row');
+        let $topRow = $('.top-row');
         let $middleRow = $('.middle-row');
         let $bottomRow = $('.bottom-row');
 
+        //MOVE PLAYER CARDS TO BOARD ON STARTUP:
         cardsToBoard(allChars, $topRow);
 
         //CHOOSE CHARACTER CLICK LISTENERS:
         $('.yoda').one('click', function () {
-                updateArrays(yoda, leia, anakin, sheev, null);
+                updateArrays(yoda, leia, anakin, sheev, undefined);
                 clearRow($topRow);
                 cardsToBoard(playerChar, $topRow);
                 cardsToBoard(enemyChars, $middleRow);
@@ -33,7 +34,7 @@ $('document').ready(function () {
         });
 
         $('.leia').one('click', function () {
-                updateArrays(leia, yoda, anakin, sheev, null);
+                updateArrays(leia, yoda, anakin, sheev, undefined);
                 clearRow($topRow);
                 cardsToBoard(playerChar, $topRow);
                 cardsToBoard(enemyChars, $middleRow);
@@ -43,8 +44,8 @@ $('document').ready(function () {
                 $('.sheev').addClass('enemy');
         });
 
-       $('.anakin').one('click', function () {
-                updateArrays(anakin, yoda, leia, sheev, null);
+        $('.anakin').one('click', function () {
+                updateArrays(anakin, yoda, leia, sheev, undefined);
                 clearRow($topRow);
                 cardsToBoard(playerChar, $topRow);
                 cardsToBoard(enemyChars, $middleRow);
@@ -55,7 +56,7 @@ $('document').ready(function () {
         });
 
         $('.sheev').one('click', function () {
-                updateArrays(sheev, leia, anakin, yoda, null);
+                updateArrays(sheev, leia, anakin, yoda, undefined);
                 clearRow($topRow);
                 cardsToBoard(playerChar, $topRow);
                 cardsToBoard(enemyChars, $middleRow);
@@ -67,12 +68,12 @@ $('document').ready(function () {
 
         //CHOOSE DEFENDER CLICK LISTENERS:
 
-        $('body').on('click', '.enemy', function() {
+        $('body').on('click', '.enemy', function () {
                 let htmlData = $(this).html();
                 //no.1 YODA:
-                if(htmlData.includes('yoda')){
+                if (htmlData.includes('yoda')) {
                         console.log(defenderChar[0]);
-                        if(defenderChar[0] === undefined || defenderChar[0] === null){
+                        if (defenderChar[0] === undefined) {
                                 defenderChar = [];
                                 $('.yoda').addClass('removed');
                                 defenderChar.push(yoda);
@@ -82,13 +83,13 @@ $('document').ready(function () {
                                 $('.attack').removeClass('invisible');
                         } else {
                                 console.log(defenderChar[0]);
-                                alert('DEFENDER IS READY FOR ATTACK!');
+                                alert('DEFEAT CURRENT DEFENDER FIRST!');
                         }
-                }  
+                }
                 //no.2 ANAKIN:
-                else if(htmlData.includes('anakin')){
+                else if (htmlData.includes('anakin')) {
                         console.log(defenderChar[0]);
-                        if(defenderChar[0] === undefined || defenderChar[0] === null){
+                        if (defenderChar[0] === undefined) {
                                 defenderChar = [];
                                 $('.anakin').addClass('removed');
                                 defenderChar.push(anakin);
@@ -98,13 +99,13 @@ $('document').ready(function () {
                                 $('.attack').removeClass('invisible');
                         } else {
                                 console.log(defenderChar[0]);
-                                alert('DEFENDER IS READY FOR ATTACK!');
+                                alert('DEFEAT CURRENT DEFENDER FIRST!');
                         }
-                }        
+                }
                 //no.3 LEIA: 
-                else if(htmlData.includes('leia')){
+                else if (htmlData.includes('leia')) {
                         console.log(defenderChar[0]);
-                        if(defenderChar[0] === undefined || defenderChar[0] === null){
+                        if (defenderChar[0] === undefined) {
                                 defenderChar = [];
                                 $('.leia').addClass('removed');
                                 defenderChar.push(leia);
@@ -114,13 +115,13 @@ $('document').ready(function () {
                                 $('.attack').removeClass('invisible');
                         } else {
                                 console.log(defenderChar[0]);
-                                alert('DEFENDER IS READY FOR ATTACK!');
+                                alert('DEFEAT CURRENT DEFENDER FIRST!');
                         }
-                }        
+                }
                 //no.4 SHEEV:
-                else if(htmlData.includes('sheev')){
+                else if (htmlData.includes('sheev')) {
                         console.log(defenderChar[0]);
-                        if(defenderChar[0] === undefined || defenderChar[0] === null){
+                        if (defenderChar[0] === undefined) {
                                 defenderChar = [];
                                 $('.sheev').addClass('removed');
                                 defenderChar.push(sheev);
@@ -130,14 +131,14 @@ $('document').ready(function () {
                                 $('.attack').removeClass('invisible');
                         } else {
                                 console.log(defenderChar[0]);
-                                alert('DEFENDER IS READY FOR ATTACK!');
+                                alert('DEFEAT CURRENT DEFENDER FIRST!');
                         }
-                } 
-                }) /*end enemy click listener*/
+                }
+        }) /*end enemy click listener*/
 
         //ATTACK BUTTON CLICK LISTENER:
 
-        $('.attack').on('click', function() {
+        $('.attack').on('click', function () {
                 let playerFullName = playerChar[0].name; /*for game updates*/
                 let playerClassName = playerChar[0].className;
                 let baseAttack = playerChar[0].baseAP;
@@ -145,21 +146,26 @@ $('document').ready(function () {
                 let defenderFullName = defenderChar[0].name; /*for game updates*/
                 let defenderClassName = defenderChar[0].className;
                 let defenderBaseAttack = defenderChar[0].AP;
-
+                
+                
                 playerChar[0].HP -= defenderChar[0].AP; /*defender attacks*/
                 console.log(`${defenderFullName} attacked you for ${defenderBaseAttack}hp damage!`);
+                $('.commentary')
+                .html(`${defenderFullName} attacked you for ${defenderBaseAttack}HP damage! <br> You attacked ${defenderFullName} for ${playerChar[0].AP}HP damage!`)
+                .css({"font-size": "2em", "color": "#862800", "padding-top": "20px"});
+                
                 defenderChar[0].HP -= playerChar[0].AP; /*player attacks*/
                 console.log(`You attacked ${defenderFullName} for ${playerChar[0].AP}hp damage!`);
                 playerChar[0].AP += baseAttack; /*player AP increased by baseAttack*/
-
+                
                 //REFLECT DAMAGE TO PLAYERCHAR:
-                $(`.hp-${playerClassName}`).text(playerChar[0].HP + "HP"); 
-
+                $(`.hp-${playerClassName}`).text(playerChar[0].HP + "HP");
+                
                 //REFLECT DAMAGE TO DEFENDERCHAR:
-                $(`.hp-${defenderClassName}`).text(defenderChar[0].HP + "HP"); 
-
+                $(`.hp-${defenderClassName}`).text(defenderChar[0].HP + "HP");
+                
                 checkHealthClearBodies();
-
+                
                 //functions on bottom to check if player or enemy is dead
                 //reset board or arrays to allow for second enemy choice or prompt "GAME OVER" / "WINNER" accordingly
         })
@@ -169,7 +175,7 @@ $('document').ready(function () {
         function checkHealthClearBodies() {
                 let playerHealth = playerChar[0].HP;
                 let defenderHealth = defenderChar[0].HP;
-                if(playerHealth <= 0){
+                if (playerHealth <= 0) {
                         clearRow($topRow);
                         alert('GAME OVER');
                         // clearRow($middleRow);
@@ -219,14 +225,15 @@ $('document').ready(function () {
 
                         //APPEND CARDS TO BOARD AT TARGET:
                         target.append($playerCard);
-                } else { console.log('EMPTY(?)');
+                } else {
+                        console.log('EMPTY(?)');
 
                 }
         }
 
-        function updateArrays(player, enemyOne, enemyTwo, enemyThree, defender){
-                playerChar   = [player];
-                enemyChars   = [enemyOne, enemyTwo, enemyThree];
+        function updateArrays(player, enemyOne, enemyTwo, enemyThree, defender) {
+                playerChar = [player];
+                enemyChars = [enemyOne, enemyTwo, enemyThree];
                 defenderChar = [defender];
         }
 
