@@ -3,7 +3,7 @@ console.log("CONNECTED");
 $('document').ready(function () {
 
         //INSTANTIATION FROM CONSTRUCTOR (BOTTOM OF SCRIPT):
-        let yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 90, 12);
+        let yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 115, 16);
         let leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 100, 8);
         let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 140, 15);
         let sheev  = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 25);
@@ -71,10 +71,8 @@ $('document').ready(function () {
                 let htmlData = $(this).html();
                 //no.1 YODA:
                 if(htmlData.includes('yoda')){
-                        if((defenderChar[0]) !== null){
-                                console.log(defenderChar);
-                                alert('DEFENDER IS READY FOR ATTACK!');
-                        } else {
+                        console.log(defenderChar[0]);
+                        if(defenderChar[0] === undefined || defenderChar[0] === null){
                                 defenderChar = [];
                                 $('.yoda').addClass('removed');
                                 defenderChar.push(yoda);
@@ -82,13 +80,15 @@ $('document').ready(function () {
                                 cardsToBoard(defenderChar, $bottomRow);
                                 $('.yoda').addClass('defender');
                                 $('.attack').removeClass('invisible');
-                        }
-                } //no.2 ANAKIN:
-                else if(htmlData.includes('anakin')){
-                        if((defenderChar[0]) !== null){
-                                console.log(defenderChar);
-                                alert('DEFENDER IS READY FOR ATTACK!');
                         } else {
+                                console.log(defenderChar[0]);
+                                alert('DEFENDER IS READY FOR ATTACK!');
+                        }
+                }  
+                //no.2 ANAKIN:
+                else if(htmlData.includes('anakin')){
+                        console.log(defenderChar[0]);
+                        if(defenderChar[0] === undefined || defenderChar[0] === null){
                                 defenderChar = [];
                                 $('.anakin').addClass('removed');
                                 defenderChar.push(anakin);
@@ -96,13 +96,15 @@ $('document').ready(function () {
                                 cardsToBoard(defenderChar, $bottomRow);
                                 $('.anakin').addClass('defender');
                                 $('.attack').removeClass('invisible');
-                        }
-                } //no.3 LEIA: 
-                else if(htmlData.includes('leia')){
-                        if((defenderChar[0]) !== null){
-                                console.log(defenderChar);
-                                alert('DEFENDER IS READY FOR ATTACK!');
                         } else {
+                                console.log(defenderChar[0]);
+                                alert('DEFENDER IS READY FOR ATTACK!');
+                        }
+                }        
+                //no.3 LEIA: 
+                else if(htmlData.includes('leia')){
+                        console.log(defenderChar[0]);
+                        if(defenderChar[0] === undefined || defenderChar[0] === null){
                                 defenderChar = [];
                                 $('.leia').addClass('removed');
                                 defenderChar.push(leia);
@@ -110,13 +112,15 @@ $('document').ready(function () {
                                 cardsToBoard(defenderChar, $bottomRow);
                                 $('.leia').addClass('defender');
                                 $('.attack').removeClass('invisible');
-                        }
-                } //no.4 SHEEV:
-                else if(htmlData.includes('sheev')){
-                        if((defenderChar[0]) !== null){
-                                console.log(defenderChar);
-                                alert('DEFENDER IS READY FOR ATTACK!');
                         } else {
+                                console.log(defenderChar[0]);
+                                alert('DEFENDER IS READY FOR ATTACK!');
+                        }
+                }        
+                //no.4 SHEEV:
+                else if(htmlData.includes('sheev')){
+                        console.log(defenderChar[0]);
+                        if(defenderChar[0] === undefined || defenderChar[0] === null){
                                 defenderChar = [];
                                 $('.sheev').addClass('removed');
                                 defenderChar.push(sheev);
@@ -124,6 +128,9 @@ $('document').ready(function () {
                                 cardsToBoard(defenderChar, $bottomRow);
                                 $('.sheev').addClass('defender');
                                 $('.attack').removeClass('invisible');
+                        } else {
+                                console.log(defenderChar[0]);
+                                alert('DEFENDER IS READY FOR ATTACK!');
                         }
                 } 
                 }) /*end enemy click listener*/
@@ -151,12 +158,36 @@ $('document').ready(function () {
                 //REFLECT DAMAGE TO DEFENDERCHAR:
                 $(`.hp-${defenderClassName}`).text(defenderChar[0].HP + "HP"); 
 
+                checkHealthClearBodies();
+
                 //functions on bottom to check if player or enemy is dead
                 //reset board or arrays to allow for second enemy choice or prompt "GAME OVER" / "WINNER" accordingly
         })
 
         //USE JQUERY TO BUILD PLAYER CARDS ON SCREEN USING CHARACTER INSTANCES:
         //BUILD A FOR LOOP (OR FOR EACH?) THAT WILL ACCESS allChars[i] AND PLACE THE CARDS ON PAGE:
+        function checkHealthClearBodies() {
+                let playerHealth = playerChar[0].HP;
+                let defenderHealth = defenderChar[0].HP;
+                if(playerHealth <= 0){
+                        clearRow($topRow);
+                        alert('GAME OVER');
+                        // clearRow($middleRow);
+                        // clearRow($bottomRow);
+                        // yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 90, 12);
+                        // leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 100, 8);
+                        // anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 140, 15);
+                        // sheev  = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 25);
+                        // allChars   = [yoda, leia, anakin, sheev];
+                        // cardsToBoard(allChars, $topRow);
+                } if (defenderHealth <= 0) {
+                        clearRow($bottomRow);
+                        defenderChar = [];
+                        alert('YOU SAVAGE!');
+                        console.log(defenderChar[0]);
+                }
+                console.log(defenderHealth);
+        }
 
         function cardsToBoard(arr, target) {
                 if (arr.length > 1) {
