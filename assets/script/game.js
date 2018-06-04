@@ -3,10 +3,10 @@ console.log("CONNECTED");
 $('document').ready(function () {
 
         //INSTANTIATION FROM CONSTRUCTOR (BOTTOM OF SCRIPT):
-        let yoda = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 115, 16);
-        let leia = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 100, 8);
-        let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 140, 15);
-        let sheev = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 25);
+        let yoda = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 95, 14);
+        let leia = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 130, 21);
+        let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 125, 13);
+        let sheev = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 100, 24);
 
         let allChars = [yoda, leia, anakin, sheev];
         let playerChar = [];
@@ -20,53 +20,9 @@ $('document').ready(function () {
 
         //MOVE PLAYER CARDS TO BOARD ON STARTUP:
         cardsToBoard(allChars, $topRow);
+        chooseYourCharacter();
 
-        //CHOOSE CHARACTER CLICK LISTENERS:
-        $('.yoda').one('click', function () {
-                updateArrays(yoda, leia, anakin, sheev, undefined);
-                clearRow($topRow);
-                cardsToBoard(playerChar, $topRow);
-                cardsToBoard(enemyChars, $middleRow);
-                $('.yoda').addClass('selected player');
-                $('.anakin').addClass('enemy');
-                $('.sheev').addClass('enemy');
-                $('.leia').addClass('enemy');
-        });
-
-        $('.leia').one('click', function () {
-                updateArrays(leia, yoda, anakin, sheev, undefined);
-                clearRow($topRow);
-                cardsToBoard(playerChar, $topRow);
-                cardsToBoard(enemyChars, $middleRow);
-                $('.leia').addClass('player');
-                $('.yoda').addClass('enemy');
-                $('.anakin').addClass('enemy');
-                $('.sheev').addClass('enemy');
-        });
-
-        $('.anakin').one('click', function () {
-                updateArrays(anakin, yoda, leia, sheev, undefined);
-                clearRow($topRow);
-                cardsToBoard(playerChar, $topRow);
-                cardsToBoard(enemyChars, $middleRow);
-                $('.anakin').addClass('player');
-                $('.leia').addClass('enemy');
-                $('.yoda').addClass('enemy');
-                $('.sheev').addClass('enemy');
-        });
-
-        $('.sheev').one('click', function () {
-                updateArrays(sheev, leia, anakin, yoda, undefined);
-                clearRow($topRow);
-                cardsToBoard(playerChar, $topRow);
-                cardsToBoard(enemyChars, $middleRow);
-                $('.sheev').addClass('player');
-                $('.anakin').addClass('enemy');
-                $('.leia').addClass('enemy');
-                $('.yoda').addClass('enemy');
-        });
-
-        //CHOOSE DEFENDER CLICK LISTENERS:
+        //CHOOSE DEFENDER DYNAMIC CLICK LISTENERS:
 
         $('body').on('click', '.enemy', function () {
                 let htmlData = $(this).html();
@@ -141,7 +97,7 @@ $('document').ready(function () {
         $('.attack').on('click', function () {
                 let playerFullName = playerChar[0].name; /*for game updates*/
                 let playerClassName = playerChar[0].className;
-                let baseAttack = playerChar[0].baseAP;
+                let playerBaseAttack = playerChar[0].baseAP;
 
                 let defenderFullName = defenderChar[0].name; /*for game updates*/
                 let defenderClassName = defenderChar[0].className;
@@ -150,13 +106,14 @@ $('document').ready(function () {
                 
                 playerChar[0].HP -= defenderChar[0].AP; /*defender attacks*/
                 console.log(`${defenderFullName} attacked you for ${defenderBaseAttack}hp damage!`);
-                $('.commentary')
+                console.log(`You attacked ${defenderFullName} for ${playerChar[0].AP}hp damage!`);
+
+                $('.commentary') /* on game-screen */
                 .html(`${defenderFullName} attacked you for ${defenderBaseAttack}HP damage! <br> You attacked ${defenderFullName} for ${playerChar[0].AP}HP damage!`)
                 .css({"font-size": "2em", "color": "#862800", "padding-top": "20px"});
                 
                 defenderChar[0].HP -= playerChar[0].AP; /*player attacks*/
-                console.log(`You attacked ${defenderFullName} for ${playerChar[0].AP}hp damage!`);
-                playerChar[0].AP += baseAttack; /*player AP increased by baseAttack*/
+                playerChar[0].AP += playerBaseAttack; /*player AP increased by original baseAttack*/
                 
                 //REFLECT DAMAGE TO PLAYERCHAR:
                 $(`.hp-${playerClassName}`).text(playerChar[0].HP + "HP");
@@ -166,9 +123,55 @@ $('document').ready(function () {
                 
                 checkHealthClearBodies();
                 
-                //functions on bottom to check if player or enemy is dead
-                //reset board or arrays to allow for second enemy choice or prompt "GAME OVER" / "WINNER" accordingly
         })
+
+        function chooseYourCharacter() {
+                //CHOOSE CHARACTER CLICK LISTENERS:
+                $('.yoda').one('click', function () {
+                        updateArrays(yoda, leia, anakin, sheev, undefined);
+                        clearRow($topRow);
+                        cardsToBoard(playerChar, $topRow);
+                        cardsToBoard(enemyChars, $middleRow);
+                        $('.yoda').addClass('selected player');
+                        $('.anakin').addClass('enemy');
+                        $('.sheev').addClass('enemy');
+                        $('.leia').addClass('enemy');
+                });
+        
+                $('.leia').one('click', function () {
+                        updateArrays(leia, yoda, anakin, sheev, undefined);
+                        clearRow($topRow);
+                        cardsToBoard(playerChar, $topRow);
+                        cardsToBoard(enemyChars, $middleRow);
+                        $('.leia').addClass('player');
+                        $('.yoda').addClass('enemy');
+                        $('.anakin').addClass('enemy');
+                        $('.sheev').addClass('enemy');
+                });
+        
+                $('.anakin').one('click', function () {
+                        updateArrays(anakin, yoda, leia, sheev, undefined);
+                        clearRow($topRow);
+                        cardsToBoard(playerChar, $topRow);
+                        cardsToBoard(enemyChars, $middleRow);
+                        $('.anakin').addClass('player');
+                        $('.leia').addClass('enemy');
+                        $('.yoda').addClass('enemy');
+                        $('.sheev').addClass('enemy');
+                });
+        
+                $('.sheev').one('click', function () {
+                        updateArrays(sheev, leia, anakin, yoda, undefined);
+                        clearRow($topRow);
+                        cardsToBoard(playerChar, $topRow);
+                        cardsToBoard(enemyChars, $middleRow);
+                        $('.sheev').addClass('player');
+                        $('.anakin').addClass('enemy');
+                        $('.leia').addClass('enemy');
+                        $('.yoda').addClass('enemy');
+                });
+        }
+
 
         //USE JQUERY TO BUILD PLAYER CARDS ON SCREEN USING CHARACTER INSTANCES:
         //BUILD A FOR LOOP (OR FOR EACH?) THAT WILL ACCESS allChars[i] AND PLACE THE CARDS ON PAGE:
@@ -176,21 +179,33 @@ $('document').ready(function () {
                 let playerHealth = playerChar[0].HP;
                 let defenderHealth = defenderChar[0].HP;
                 if (playerHealth <= 0) {
+                        // $(`'.${playerChar[0].className}'`).animate({width: "0px"}, 500)
                         clearRow($topRow);
+                        // let enemies = $('.enemy');
+                        $('body').off('click', '.enemy');
+                        $('body').off('click', '.attack');
                         alert('GAME OVER');
+                        // // restart();
+                        yoda.reset();
+                        leia.reset();
+                        anakin.reset();
+                        sheev.reset();
+
+                        /*NEED TO MOVE BELOW FEATURES TO ANOTHER FUNCTION promptUser() {} */
+
                         // clearRow($middleRow);
                         // clearRow($bottomRow);
-                        // yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 90, 12);
-                        // leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 100, 8);
-                        // anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 140, 15);
-                        // sheev  = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 25);
-                        // allChars   = [yoda, leia, anakin, sheev];
+                        // allChars = [yoda, leia, anakin, sheev];
+                        // playerChar = [];
+                        // enemyChars = [];
+                        // defenderChar = [];
                         // cardsToBoard(allChars, $topRow);
+                        // chooseYourCharacter();
+                        
                 } if (defenderHealth <= 0) {
                         clearRow($bottomRow);
                         defenderChar = [];
-                        alert('YOU SAVAGE!');
-                        console.log(defenderChar[0]);
+                        // alert('YOU SAVAGE!');
                 }
                 console.log(defenderHealth);
         }
@@ -241,6 +256,10 @@ $('document').ready(function () {
                 target.empty();
         }
 
+        function restart() {
+                location.reload();
+        }
+
 
         //CONSTRUCTOR FUNCTION:       
         function CreateCharacter(name, className, imageURL, HP, AP) {
@@ -252,6 +271,15 @@ $('document').ready(function () {
                 this.baseAP = AP;
                 this.greeting = function () {
                         console.log('Hi! I\'m ' + this.name + '. ' + 'My HP: ' + this.HP + ' My AP: ' + AP + ' ClassName: ' + this.className);
+                }
+                this.reset = function () {
+                        this.name = name;
+                        this.className = className;
+                        this.imageURL = imageURL;
+                        this.HP = HP;
+                        this.AP = AP;
+                        this.baseAP = AP;
+                        console.log(`${this.className} has been restored`);
                 }
         }
 

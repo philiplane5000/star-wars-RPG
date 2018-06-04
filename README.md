@@ -11,7 +11,7 @@
 
 ### DEV NOTES
 
-#### BUGS
+#### BUGS / IMPROVEMENTS
 * player can continue attacking (even while dead...)
 * game doesnt really end or reset
 * lacking sound effects
