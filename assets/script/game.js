@@ -136,6 +136,8 @@ $('document').ready(function () {
                         $('.anakin').addClass('enemy');
                         $('.sheev').addClass('enemy');
                         $('.leia').addClass('enemy');
+                        console.log(playerChar.length);
+
                 });
         
                 $('.leia').one('click', function () {
@@ -172,7 +174,6 @@ $('document').ready(function () {
                 });
         }
 
-
         //USE JQUERY TO BUILD PLAYER CARDS ON SCREEN USING CHARACTER INSTANCES:
         //BUILD A FOR LOOP (OR FOR EACH?) THAT WILL ACCESS allChars[i] AND PLACE THE CARDS ON PAGE:
         function checkHealthClearBodies() {
@@ -181,18 +182,23 @@ $('document').ready(function () {
                 if (playerHealth <= 0) {
                         // $(`'.${playerChar[0].className}'`).animate({width: "0px"}, 500)
                         clearRow($topRow);
+                        playerChar = [];
                         // let enemies = $('.enemy');
                         $('body').off('click', '.enemy');
                         $('body').off('click', '.attack');
-                        alert('GAME OVER');
+                        // alert('GAME OVER');
                         // // restart();
                         yoda.reset();
                         leia.reset();
                         anakin.reset();
                         sheev.reset();
-
+                        
+                        console.log(playerChar.length);
+                        console.log(enemyChars.length);
+                        console.log(defenderChar.length);
+                        promptUser();
                         /*NEED TO MOVE BELOW FEATURES TO ANOTHER FUNCTION promptUser() {} */
-
+                        
                         // clearRow($middleRow);
                         // clearRow($bottomRow);
                         // allChars = [yoda, leia, anakin, sheev];
@@ -205,9 +211,36 @@ $('document').ready(function () {
                 } if (defenderHealth <= 0) {
                         clearRow($bottomRow);
                         defenderChar = [];
-                        // alert('YOU SAVAGE!');
+                        alert('YOU SAVAGE!');
+                        if(enemyChars.length == 1) {
+                                promptUser();        
+                        } else {
+                                console.log(playerChar.length);
+                                console.log(enemyChars.length);
+                                console.log(defenderChar.length);
+                        }
+              
                 }
-                console.log(defenderHealth);
+                // console.log(defenderHealth);
+        }
+
+        function promptUser() {
+                if(playerChar.length == 0) {
+                        let prompt = $('<div>');
+                        let gameOver = $('<div>');
+                        prompt.css({"width": "400px", "height": "300px", "background-color": "black", "color": "yellow", "position": "fixed", "top": "50%", "left": "50%", "transform": "translate(-50%, -50%)"});
+                        // prompt.html('<h3> GAME OVER! </h3>');
+
+                        gameOver.css({"color": "yellow", "font-size": "5rem", "text-align": "center", "margin-top": "20px"});
+                        gameOver.text('GAME OVER');
+                        prompt.append(gameOver);
+
+                        $('body').append(prompt);
+                } if (playerChar.length == 1 && defenderChar.length == 0) {
+                        alert('STAR WARS LEGEND');
+                } else {
+                        return;
+                }   
         }
 
         function cardsToBoard(arr, target) {
@@ -255,11 +288,6 @@ $('document').ready(function () {
         function clearRow(target) {
                 target.empty();
         }
-
-        function restart() {
-                location.reload();
-        }
-
 
         //CONSTRUCTOR FUNCTION:       
         function CreateCharacter(name, className, imageURL, HP, AP) {
