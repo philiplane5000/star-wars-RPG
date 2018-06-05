@@ -12,7 +12,5 @@
 ### DEV NOTES
 
 #### BUGS / IMPROVEMENTS
-* player can continue attacking (even while dead...)
-* game doesnt really end or reset
-* lacking sound effects
-* subtle sexism.. convert LEIA to boss #metoo
+* need a button to allow "try again?" or "play again?"
+* no sound effects
