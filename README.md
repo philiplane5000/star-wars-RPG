@@ -14,3 +14,4 @@
 #### BUGS / IMPROVEMENTS
 * need a button to allow "try again?" or "play again?"
 * no sound effects
+* if player defeats enemy, but also dies.. prompt is "Game Over" (enemy remains with -HP)

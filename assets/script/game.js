@@ -4,7 +4,7 @@ $('document').ready(function () {
 
         //INSTANTIATION FROM CONSTRUCTOR (BOTTOM OF SCRIPT):
         let yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 95, 14);
-        let leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 130, 21);
+        let leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 130, 20);
         let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 125, 13);
         let sheev  = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 100, 24);
 
