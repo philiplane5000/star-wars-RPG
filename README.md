@@ -1,10 +1,10 @@
 # Star Wars RPG
 
-# Instructions
+## GAMEPLAY:
 
 * Select your character using mouse click
 * Select one of three enemy players to attack first
-* Battle the enemy (now in "Current Cefender" row) by clicking "Attack" button
+* Battle the "Current Defender" by clicking "Attack" button
 * NOTE: Attack button will not display until there is an enemy prepared for it in "Current Defender" row
 * Choose your battles wisely with a "save the best for last" approach
 
