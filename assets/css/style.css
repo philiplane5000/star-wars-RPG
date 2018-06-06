@@ -26,7 +26,8 @@ header h1 {
     border-radius: 5px;
     text-align: center;
     padding: 2rem;
-    border-bottom: 5px solid #d3290b;
+    /* border-bottom: 5px solid #d3290b; */
+    border-bottom: 5px solid #0a0406;
 }
 
 main {
@@ -119,4 +120,9 @@ main img {
 .commentary-box {
     display: inline-block;
     margin-left: 20px;
+}
+
+#restart:hover {
+    color: yellow;
+    transition: all 1s;
 }
