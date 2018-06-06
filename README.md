@@ -15,3 +15,5 @@
 * clear game commentary text after win or loss 
 * no sound effects
 * WET code
+* can condense promptChampion() + promptGameOver() into one function
+* use two colors for game commentary (one for you attacked __ for __ HP) and other...

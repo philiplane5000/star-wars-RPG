@@ -1,20 +1,19 @@
-console.log("CONNECTED");
-
 $('document').ready(function () {
 
-        //INSTANTIATION FROM CONSTRUCTOR (BOTTOM OF SCRIPT):
-        let yoda = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 95, 14);
-        let leia = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 115, 27);
+        //INSTANTIATION OF PLAYER CARDS FROM CONSTRUCTOR FUNCTION (BOTTOM OF SCRIPT):
+        let yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 95, 14);
+        let leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 115, 27);
         let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 130, 17);
-        let sheev = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 12);
+        let sheev  = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 12);
 
-        let allChars = [yoda, leia, anakin, sheev];
-        let playerChar = [];
-        let enemyChars = [];
+        //ARRAYS TO HOLD PLAYER OBJECTS
+        let allChars     = [yoda, leia, anakin, sheev];
+        let playerChar   = [];
+        let enemyChars   = [];
         let defenderChar = [];
 
         //ROW TARGETS:
-        let $topRow = $('.top-row');
+        let $topRow    = $('.top-row');
         let $middleRow = $('.middle-row');
         let $bottomRow = $('.bottom-row');
 
@@ -23,145 +22,42 @@ $('document').ready(function () {
         chooseYourCharacter();
         chooseDefender();
 
-        //CHOOSE DEFENDER DYNAMIC CLICK LISTENERS:
-        function chooseDefender() {
+        //BEGIN GAME FUNCTIONS:
+        //=====================//
 
-                $('body').on('click', '.enemy', function () {
-                        let htmlData = $(this).html();
-                        //no.1 YODA:
-                        if (htmlData.includes('yoda')) {
-                                console.log(defenderChar[0]);
-                                if (defenderChar[0] === undefined) {
+        function cardsToBoard(arr, target) {
 
-                                        index = enemyChars.indexOf(yoda);
-                                        enemyChars.splice(index, 1);
+                if (arr.length > 1) {
+                        for (let i = 0; i < arr.length; i++) {
+                                //BUILDING PLAYER CARD HTML AND APPLYING APPROPRIATE CLASSES:
+                                let $playerCard = $('<div>').addClass('player-card ' + arr[i].className);
+                                let $playerName = $('<div>').addClass('char-name').html(arr[i].name);
+                                let $playerImage = $('<img>').attr('src', arr[i].imageURL);
+                                let $playerHP = $('<div>').addClass(`hp-${arr[i].className}`).html(arr[i].HP + 'HP');
 
-                                        defenderChar = [];
-                                        clearRow($bottomRow);
+                                //PLACE PLAYER ATTRIBUTES ON CARD:
+                                $playerCard.append($playerName);
+                                $playerCard.append($playerImage);
+                                $playerCard.append($playerHP);
 
-                                        $('.yoda').addClass('removed');
-                                        defenderChar.push(yoda);
-                                        cardsToBoard(defenderChar, $bottomRow);
-                                        $('.yoda').addClass('defender');
-                                        if ($('.attack').hasClass('invisible')) {
-                                                console.log('YES INVISIBLE');
-                                                $('.attack').toggleClass('invisible');
-                                        }
-
-                                } else {
-                                        console.log(defenderChar[0]);
-                                        alert('DEFEAT CURRENT DEFENDER FIRST!');
-                                }
+                                //APPEND CARDS TO BOARD AT TARGET:
+                                target.append($playerCard);
                         }
-                        //no.2 ANAKIN:
-                        else if (htmlData.includes('anakin')) {
-                                console.log(defenderChar[0]);
-                                if (defenderChar[0] === undefined) {
+                } else if ((typeof arr) === 'object') {
+                        let $playerCard = $('<div>').addClass('player-card ' + arr[0].className);
+                        let $playerName = $('<div>').addClass('char-name').html(arr[0].name);
+                        let $playerImage = $('<img>').attr('src', arr[0].imageURL);
+                        let $playerHP = $('<div>').addClass(`hp-${arr[0].className}`).html(arr[0].HP + 'HP');
 
-                                        index = enemyChars.indexOf(anakin);
-                                        enemyChars.splice(index, 1);
+                        //PLACE PLAYER ATTRIBUTES ON CARD:
+                        $playerCard.append($playerName);
+                        $playerCard.append($playerImage);
+                        $playerCard.append($playerHP);
 
-                                        defenderChar = [];
-                                        clearRow($bottomRow);
-
-                                        $('.anakin').addClass('removed');
-                                        defenderChar.push(anakin);
-                                        cardsToBoard(defenderChar, $bottomRow);
-                                        $('.anakin').addClass('defender');
-                                        if ($('.attack').hasClass('invisible')) {
-                                                console.log('YES INVISIBLE');
-                                                $('.attack').toggleClass('invisible');
-                                        }
-                                } else {
-                                        console.log(defenderChar[0]);
-                                        alert('DEFEAT CURRENT DEFENDER FIRST!');
-                                }
-                        }
-                        //no.3 LEIA: 
-                        else if (htmlData.includes('leia')) {
-                                console.log(defenderChar[0]);
-                                if (defenderChar[0] === undefined) {
-
-                                        index = enemyChars.indexOf(leia);
-                                        enemyChars.splice(index, 1);
-
-                                        defenderChar = [];
-                                        clearRow($bottomRow);
-                                        $('.leia').addClass('removed');
-                                        defenderChar.push(leia);
-                                        cardsToBoard(defenderChar, $bottomRow);
-                                        $('.leia').addClass('defender');
-                                        if ($('.attack').hasClass('invisible')) {
-                                                console.log('YES INVISIBLE');
-                                                $('.attack').toggleClass('invisible');
-                                        }
-                                } else {
-                                        console.log(defenderChar[0]);
-                                        alert('DEFEAT CURRENT DEFENDER FIRST!');
-                                }
-                        }
-                        //no.4 SHEEV:
-                        else if (htmlData.includes('sheev')) {
-                                console.log(defenderChar[0]);
-                                if (defenderChar[0] === undefined) {
-
-                                        index = enemyChars.indexOf(sheev);
-                                        enemyChars.splice(index, 1);
-                                        console.log(enemyChars);
-                                        console.log(enemyChars.length);
-
-                                        defenderChar = [];
-                                        clearRow($bottomRow);
-                                        $('.sheev').addClass('removed');
-                                        defenderChar.push(sheev);
-                                        cardsToBoard(defenderChar, $bottomRow);
-                                        $('.sheev').addClass('defender');
-                                        if ($('.attack').hasClass('invisible')) {
-                                                console.log('YES INVISIBLE');
-                                                $('.attack').toggleClass('invisible');
-                                        }
-                                        console.log(enemyChars.length);
-                                } else {
-                                        console.log(defenderChar[0]);
-                                        alert('DEFEAT CURRENT DEFENDER FIRST!');
-                                }
-                        }
-                }) /*end enemy click listener*/
-
+                        //APPEND CARDS TO BOARD AT TARGET:
+                        target.append($playerCard);
+                } 
         }
-
-        //ATTACK BUTTON CLICK LISTENER:
-
-        $('.attack').on('click', function () {
-                let playerFullName = playerChar[0].name; /*for game updates*/
-                let playerClassName = playerChar[0].className;
-                let playerBaseAttack = playerChar[0].baseAP;
-
-                let defenderFullName = defenderChar[0].name; /*for game updates*/
-                let defenderClassName = defenderChar[0].className;
-                let defenderBaseAttack = defenderChar[0].AP;
-
-
-                playerChar[0].HP -= defenderChar[0].AP; /*defender attacks*/
-                console.log(`${defenderFullName} attacked you for ${defenderBaseAttack}hp damage!`);
-                console.log(`You attacked ${defenderFullName} for ${playerChar[0].AP}hp damage!`);
-
-                $('.commentary') /* on game-screen */
-                        .html(`${defenderFullName} attacked you for ${defenderBaseAttack}HP damage! <br> You attacked ${defenderFullName} for ${playerChar[0].AP}HP damage!`)
-                        .css({ "font-size": "2em", "color": "#862800", "padding-top": "20px" });
-
-                defenderChar[0].HP -= playerChar[0].AP; /*player attacks*/
-                playerChar[0].AP += playerBaseAttack; /*player AP increased by original baseAttack*/
-
-                //REFLECT DAMAGE TO PLAYERCHAR:
-                $(`.hp-${playerClassName}`).text(playerChar[0].HP + "HP");
-
-                //REFLECT DAMAGE TO DEFENDERCHAR:
-                $(`.hp-${defenderClassName}`).text(defenderChar[0].HP + "HP");
-
-                checkWinOrLose();
-
-        })
 
         function chooseYourCharacter() {
                 //CHOOSE CHARACTER CLICK LISTENERS:
@@ -174,8 +70,6 @@ $('document').ready(function () {
                         $('.anakin').addClass('enemy');
                         $('.sheev').addClass('enemy');
                         $('.leia').addClass('enemy');
-                        console.log(playerChar.length);
-
                 });
 
                 $('.leia').one('click', function () {
@@ -212,16 +106,124 @@ $('document').ready(function () {
                 });
         }
 
-        //USE JQUERY TO BUILD PLAYER CARDS ON SCREEN USING CHARACTER INSTANCES:
-        //BUILD A FOR LOOP (OR FOR EACH?) THAT WILL ACCESS allChars[i] AND PLACE THE CARDS ON PAGE:
+        function chooseDefender() {
+                //CHOOSE DEFENDER CLICK LISTENERS:
+                $('body').on('click', '.enemy', function () {
+                        let htmlData = $(this).html();
+                        //no.1 YODA:
+                        if (htmlData.includes('yoda')) {
+                                if (defenderChar[0] === undefined) {
+                                        index = enemyChars.indexOf(yoda);
+                                        enemyChars.splice(index, 1);
+                                        defenderChar = [];
+                                        clearRow($bottomRow);
+                                        $('.yoda').addClass('removed');
+                                        defenderChar.push(yoda);
+                                        cardsToBoard(defenderChar, $bottomRow);
+                                        $('.yoda').addClass('defender');
+                                        if ($('.attack').hasClass('invisible')) {
+                                                $('.attack').toggleClass('invisible');
+                                        }
+                                } else {
+                                        alert('DEFEAT CURRENT DEFENDER FIRST!');
+                                }
+                        }
+                        //no.2 ANAKIN:
+                        else if (htmlData.includes('anakin')) {
+                                if (defenderChar[0] === undefined) {
+                                        index = enemyChars.indexOf(anakin);
+                                        enemyChars.splice(index, 1);
+                                        defenderChar = [];
+                                        clearRow($bottomRow);
+                                        $('.anakin').addClass('removed');
+                                        defenderChar.push(anakin);
+                                        cardsToBoard(defenderChar, $bottomRow);
+                                        $('.anakin').addClass('defender');
+                                        if ($('.attack').hasClass('invisible')) {
+                                                $('.attack').toggleClass('invisible');
+                                        }
+                                } else {
+                                        alert('DEFEAT CURRENT DEFENDER FIRST!');
+                                }
+                        }
+                        //no.3 LEIA: 
+                        else if (htmlData.includes('leia')) {
+                                if (defenderChar[0] === undefined) {
+                                        index = enemyChars.indexOf(leia);
+                                        enemyChars.splice(index, 1);
+                                        defenderChar = [];
+                                        clearRow($bottomRow);
+                                        $('.leia').addClass('removed');
+                                        defenderChar.push(leia);
+                                        cardsToBoard(defenderChar, $bottomRow);
+                                        $('.leia').addClass('defender');
+                                        if ($('.attack').hasClass('invisible')) {
+                                                $('.attack').toggleClass('invisible');
+                                        }
+                                } else {
+                                        alert('DEFEAT CURRENT DEFENDER FIRST!');
+                                }
+                        }
+                        //no.4 SHEEV:
+                        else if (htmlData.includes('sheev')) {
+                                if (defenderChar[0] === undefined) {
+                                        index = enemyChars.indexOf(sheev);
+                                        enemyChars.splice(index, 1);
+                                        defenderChar = [];
+                                        clearRow($bottomRow);
+                                        $('.sheev').addClass('removed');
+                                        defenderChar.push(sheev);
+                                        cardsToBoard(defenderChar, $bottomRow);
+                                        $('.sheev').addClass('defender');
+                                        if ($('.attack').hasClass('invisible')) {
+                                                $('.attack').toggleClass('invisible');
+                                        }
+                                } else {
+                                        alert('DEFEAT CURRENT DEFENDER FIRST!');
+                                }
+                        }
+                })
+        }  /*end chooseDefender() */
+
+        //ATTACK BUTTON CLICK LISTENER:
+        $('.attack').on('click', function () {
+                //PLAYER:
+                let playerFullName = playerChar[0].name; /*for game updates*/
+                let playerClassName = playerChar[0].className;
+                let playerBaseAttack = playerChar[0].baseAP;
+                //DEFENDER:
+                let defenderFullName = defenderChar[0].name; /*for game updates*/
+                let defenderClassName = defenderChar[0].className;
+                let defenderBaseAttack = defenderChar[0].AP;
+
+                playerChar[0].HP -= defenderChar[0].AP; /*defender attacks*/
+                console.log(`${defenderFullName} attacked you for ${defenderBaseAttack}hp damage!`);
+                defenderChar[0].HP -= playerChar[0].AP; /*player attacks*/
+                console.log(`You attacked ${defenderFullName} for ${playerChar[0].AP}hp damage!`);
+
+                $('.commentary') /* on game-screen USE TWO COLORS(!) */
+                        .html(`${defenderFullName} attacked you for ${defenderBaseAttack}HP damage! <br> You attacked ${defenderFullName} for ${playerChar[0].AP}HP damage!`)
+                        .css({ "font-size": "2em", "color": "#862800", "padding-top": "20px" });
+
+                //PLAYER AP INCREASED BY ORIGINAL baseAttack
+                playerChar[0].AP += playerBaseAttack; 
+
+                //REFLECT DAMAGE TO PLAYERCHAR:
+                $(`.hp-${playerClassName}`).text(playerChar[0].HP + "HP");
+
+                //REFLECT DAMAGE TO DEFENDERCHAR:
+                $(`.hp-${defenderClassName}`).text(defenderChar[0].HP + "HP");
+
+                checkWinOrLose();
+        })
+
         function checkWinOrLose() {
+
                 let playerHealth = playerChar[0].HP;
                 let defenderHealth = defenderChar[0].HP;
 
                 if (defenderHealth <= 0 && enemyChars.length == 0 && playerHealth > 0) {
                         clearRow($bottomRow);
-                        // defenderChar = []; /*potentially unnessesary*/
-                        // enemyChars = []; /*potentially unnessesary because in prompt()*/
                         $('body').off('click', '.enemy');
                         $('body').off('click', '.attack');
                         $('.attack').toggleClass('invisible');
@@ -229,45 +231,37 @@ $('document').ready(function () {
                 } else if (defenderHealth <= 0 && enemyChars.length == 0 && playerHealth < 0) {
                         clearRow($topRow);
                         clearRow($bottomRow);
-                        // defenderChar = []; /*potentially unnessesary*/
-                        // enemyChars = []; /*potentially unnessesary because in prompt()*/
                         $('body').off('click', '.enemy');
                         $('body').off('click', '.attack');
                         $('.attack').toggleClass('invisible');
-                        promptChampion(); /*kinda?? promptHero()*/
+                        promptChampion(); /*so if player dies.. but kills enemy.. still a legend? maybe add promptHero()*/
                 } else if (playerHealth <= 0) {
                         clearRow($topRow);
                         playerChar = [];
-                        /* prevent further battle */
                         $('body').off('click', '.enemy');
                         $('body').off('click', '.attack');
-                        /* reset to orinal character values */
+                        $('.attack').toggleClass('invisible');
                         yoda.reset();
                         leia.reset();
                         anakin.reset();
                         sheev.reset();
                         promptGameOver();
-
                 } else if (defenderHealth <= 0) {
                         clearRow($bottomRow);
                         defenderChar = [];
                         alert("SAVAGE!");
                 }
-
-
-
         }
 
         function promptChampion() {
-                let $modal = $('<div id="modal">');
-                let $prompt = $('<div id="prompt">');
+                //HTML AND STYLING APPLIED ON THE FLY WITH JQUERY (practice rather than practicality):
+                let $modal    = $('<div id="modal">');
+                let $prompt   = $('<div id="prompt">');
                 let $gameOver = $('<div>');
-                let $restart = $('<div>');
-                // $('.attack').hide();
+                let $restart  = $('<div>');
 
                 $modal.css({ "position": "fixed", "top": "0", "left": "0", "bottom": "0", "right": "0", "background-color": "rgba(0,0,0,0.65)", "z-index": "5" });
                 $prompt.css({ "background-color": "#0a0406", "border": "2px dashed slategray", "position": "fixed", "top": "50%", "left": "50%", "transform": "translate(-50%, -50%)", "z-index": "10" });
-
                 $gameOver.html('<img src=\"./assets/images/you-win-oval.png\" width="426px" height="220px">');
 
                 $restart.css({ "margin": "0 auto", "position": "relative", "top": "-50px", "background-color": "#0a0406", "text-align": "center", "font-size": "2rem", "cursor": "pointer" });
@@ -277,7 +271,7 @@ $('document').ready(function () {
                 $restart.on('click', function () {
                         $prompt.hide();
                         $modal.hide();
-                        // $('.commentary-box').text('');
+                        $('.commentary').empty();
 
                         yoda.reset();
                         leia.reset();
@@ -292,21 +286,8 @@ $('document').ready(function () {
                         enemyChars = [];
                         defenderChar = [];
 
-                        console.log(typeof $bottomRow);
-                        console.log($bottomRow.length);
-                        console.log(defenderChar[0]);
-
-                        // $topRow.empty();
-                        // $middleRow.empty();
-                        // $bottomRow.empty();
-
                         allChars = [yoda, leia, anakin, sheev];
                         cardsToBoard(allChars, $topRow);
-
-
-
-                        // cardsToBoard(enemyChars, $middleRow);
-                        // cardsToBoard(defenderChar, $bottomRow);
                         chooseYourCharacter();
                         chooseDefender();
                 })
@@ -319,25 +300,24 @@ $('document').ready(function () {
         }
 
         function promptGameOver() {
-                let $modal = $('<div id="modal">');
-                let $prompt = $('<div id="prompt">');
+                //HTML AND STYLING APPLIED ON THE FLY WITH JQUERY (practice rather than practicality):
+                let $modal    = $('<div id="modal">');
+                let $prompt   = $('<div id="prompt">');
                 let $gameOver = $('<div>');
-                let $restart = $('<div>');
-                $('.attack').toggleClass('invisible');
+                let $restart  = $('<div>');
 
                 $modal.css({ "position": "fixed", "top": "0", "left": "0", "bottom": "0", "right": "0", "background-color": "rgba(0,0,0,0.65)", "z-index": "5" });
                 $prompt.css({ "background-color": "#0a0406", "border": "2px dashed slategray", "position": "fixed", "top": "50%", "left": "50%", "transform": "translate(-50%, -50%)", "z-index": "10" });
-
                 $gameOver.html('<img src=\"./assets/images/game-over-xs.png\" width="426px" height="220px">');
 
-                $restart.css({ "margin": "0 auto", "position": "relative", "top": "-50px", "background-color": "#0a0406", "text-align": "center", "font-size": "2rem", "cursor": "pointer"});
+                $restart.css({ "margin": "0 auto", "position": "relative", "top": "-50px", "background-color": "#0a0406", "text-align": "center", "font-size": "2rem", "cursor": "pointer" });
                 $restart.html('<h2 id="restart">TRY AGAIN?</h2>').css({ "color": "slategray" });
 
                 //RESTART BUTTON CLICK LISTENER ADDED UPON CREATION:
                 $restart.on('click', function () {
                         $prompt.hide();
                         $modal.hide();
-                        // $('.commentary-box').text('');
+                        $('.commentary').empty();
 
                         yoda.reset();
                         leia.reset();
@@ -364,42 +344,7 @@ $('document').ready(function () {
                 $('body').append($modal);
                 $('body').append($prompt);
         }
-
-        function cardsToBoard(arr, target) {
-                if (arr.length > 1) {
-                        for (let i = 0; i < arr.length; i++) {
-                                //BUILDING PLAYER CARD HTML AND APPLYING APPROPRIATE CLASSES:
-                                let $playerCard = $('<div>').addClass('player-card ' + arr[i].className);
-                                let $playerName = $('<div>').addClass('char-name').html(arr[i].name);
-                                let $playerImage = $('<img>').attr('src', arr[i].imageURL);
-                                let $playerHP = $('<div>').addClass(`hp-${arr[i].className}`).html(arr[i].HP + 'HP');
-
-                                //PLACE PLAYER CARDS ATTRIBUTES ON CARD:
-                                $playerCard.append($playerName);
-                                $playerCard.append($playerImage);
-                                $playerCard.append($playerHP);
-
-                                //APPEND CARDS TO BOARD AT TARGET:
-                                target.append($playerCard);
-                        }
-                } else if ((typeof arr) === 'object') {
-                        let $playerCard = $('<div>').addClass('player-card ' + arr[0].className);
-                        let $playerName = $('<div>').addClass('char-name').html(arr[0].name);
-                        let $playerImage = $('<img>').attr('src', arr[0].imageURL);
-                        let $playerHP = $('<div>').addClass(`hp-${arr[0].className}`).html(arr[0].HP + 'HP');
-
-                        //PLACE PLAYER CARDS ATTRIBUTES ON CARD:
-                        $playerCard.append($playerName);
-                        $playerCard.append($playerImage);
-                        $playerCard.append($playerHP);
-
-                        //APPEND CARDS TO BOARD AT TARGET:
-                        target.append($playerCard);
-                } else {
-                        console.log('EMPTY(?)');
-
-                }
-        }
+        /* ^ can combine promptGameOver() + promptChampion() into endGamePrompt(e) */
 
         function updateArrays(player, enemyOne, enemyTwo, enemyThree, defender) {
                 playerChar = [player];
@@ -426,9 +371,7 @@ $('document').ready(function () {
                         this.HP = HP;
                         this.AP = AP;
                         this.baseAP = AP;
-                        console.log(`${this.className} has been restored`);
                 };
         }
-
 
 }) /*END OF DOCUMENT.READY*/
