@@ -4,7 +4,8 @@ html {
 }
 
 body {
-    background-image: url('../images/stars-bg.jpg');
+    background: url('../images/moon-bg.jpg') no-repeat fixed top;
+    background-size: 100vw;
 }
 
 h1 {
