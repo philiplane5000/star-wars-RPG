@@ -270,7 +270,7 @@ $('document').ready(function () {
 
                 $gameOver.html('<img src=\"./assets/images/you-win-oval.png\" width="426px" height="220px">');
 
-                $restart.css({ "margin": "0 auto", "position": "relative", "top": "-50px", "background-color": "#0a0406", "text-align": "center", "font-size": "2rem" });
+                $restart.css({ "margin": "0 auto", "position": "relative", "top": "-50px", "background-color": "#0a0406", "text-align": "center", "font-size": "2rem", "cursor": "pointer" });
                 $restart.html('<h2 id="restart">PLAY AGAIN?</h2>').css({ "color": "slategray" });
 
                 //RESTART BUTTON CLICK LISTENER ADDED UPON CREATION:
@@ -330,7 +330,7 @@ $('document').ready(function () {
 
                 $gameOver.html('<img src=\"./assets/images/game-over-xs.png\" width="426px" height="220px">');
 
-                $restart.css({ "margin": "0 auto", "position": "relative", "top": "-50px", "background-color": "#0a0406", "text-align": "center", "font-size": "2rem" });
+                $restart.css({ "margin": "0 auto", "position": "relative", "top": "-50px", "background-color": "#0a0406", "text-align": "center", "font-size": "2rem", "cursor": "pointer"});
                 $restart.html('<h2 id="restart">TRY AGAIN?</h2>').css({ "color": "slategray" });
 
                 //RESTART BUTTON CLICK LISTENER ADDED UPON CREATION:

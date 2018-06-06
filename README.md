@@ -12,6 +12,6 @@
 ### DEV NOTES
 
 #### BUGS / IMPROVEMENTS
-* need a button to allow "try again?" or "play again?"
+* clear game commentary text after win or loss 
 * no sound effects
-* if player defeats enemy, but also dies.. prompt is "Game Over" (enemy remains with -HP)
+* WET code
