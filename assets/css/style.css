@@ -127,3 +127,9 @@ main img {
     color: yellow;
     transition: all 1s;
 }
+
+.restart-hidden {
+    opacity: 0;
+    color: none;
+    transition: all 1s;
+}

@@ -2,7 +2,7 @@ $('document').ready(function () {
 
         //INSTANTIATION OF PLAYER CARDS FROM CONSTRUCTOR FUNCTION (BOTTOM OF SCRIPT):
         let yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 95, 14);
-        let leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 115, 27);
+        let leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 115, 100);
         let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 130, 17);
         let sheev  = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 12);
 
@@ -11,6 +11,9 @@ $('document').ready(function () {
         let playerChar   = [];
         let enemyChars   = [];
         let defenderChar = [];
+
+        let restartBtnInterval;
+        let restartBtnInterval2;
 
         //ROW TARGETS:
         let $topRow    = $('.top-row');
@@ -259,18 +262,35 @@ $('document').ready(function () {
                 let $prompt   = $('<div id="prompt">');
                 let $gameOver = $('<div>');
                 let $restart  = $('<div>');
+                let $body = $('body');
+                
+                $modal.css({ "position": "fixed", "top": "0", "left": "0", "bottom": "0", "right": "0", "background-color": "rgba(0,0,0,0.85)", "z-index": "5" });
+                // $prompt.css({ "background-color": "#0a0406", "border": "2px dashed slategray", "position": "fixed", "top": "50vh", "left": "50%", "transform": "translate(-50%, -50%)", "transition": "transform 1s", "z-index": "10" });
+                $gameOver.html('<img src=\"./assets/images/you-win-oval.png\" width="426px" height="220px">').css({"position": "fixed", "top": "100vh", "left": "50%", "transform": "translate(-50%, -200%)", "z-index":"100"})
+                
+                $restart.css({"position": "fixed", "top": "80%", "left": "50%", "font-size": "2rem", "cursor": "pointer", "z-index": "20", "transform": "translate(-50%, -50%)"});
+                $restart.html('<h2 id="restart">PLAY AGAIN?</h2>').css({ "opacity": "1", "color": "white", "z-index": "30", "transition-property": "opacity", "transition-duration": "1s"});
+                $restart.addClass('restart-hidden');
+                $body.append($restart);
+                clearInterval(restartBtnInterval);
+                startFlicker();
 
-                $modal.css({ "position": "fixed", "top": "0", "left": "0", "bottom": "0", "right": "0", "background-color": "rgba(0,0,0,0.65)", "z-index": "5" });
-                $prompt.css({ "background-color": "#0a0406", "border": "2px dashed slategray", "position": "fixed", "top": "50%", "left": "50%", "transform": "translate(-50%, -50%)", "z-index": "10" });
-                $gameOver.html('<img src=\"./assets/images/you-win-oval.png\" width="426px" height="220px">');
+                function startFlicker() {
+                        restartBtnInterval  = setInterval(appear, 1000);
+                }
 
-                $restart.css({ "margin": "0 auto", "position": "relative", "top": "-50px", "background-color": "#0a0406", "text-align": "center", "font-size": "2rem", "cursor": "pointer" });
-                $restart.html('<h2 id="restart">PLAY AGAIN?</h2>').css({ "color": "slategray" });
-
+                function appear() {
+                        console.log("every 1s");
+                        $('#restart').toggleClass('restart-hidden');
+                }
                 //RESTART BUTTON CLICK LISTENER ADDED UPON CREATION:
                 $restart.on('click', function () {
                         $prompt.hide();
                         $modal.hide();
+                        $gameOver.hide();
+                        $restart.hide();
+                        clearInterval(restartBtnInterval);
+
                         $('.commentary').empty();
 
                         yoda.reset();
@@ -292,11 +312,10 @@ $('document').ready(function () {
                         chooseDefender();
                 })
 
-                $gameOver.append($restart);
                 $prompt.append($gameOver);
 
                 $('body').append($modal);
-                $('body').append($prompt);
+                $('body').append($gameOver);
         }
 
         function promptGameOver() {
