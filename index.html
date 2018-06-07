@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Star Wars RPG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+    />
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
 </head>
 
@@ -14,44 +15,59 @@
 
     <main>
         <header>
-            <h1>STAR WARS: <span>RPG</span></h1>
+            <h1>STAR WARS:
+                <span>RPG</span>
+            </h1>
         </header>
 
-<section class="game-content">
+        <section class="game-content">
 
-        <h2>Your Character: (Click to Choose) </h2>
-        <div class="row-container">
-            <div class="top-row">
+            <h2>Your Character: (Click to Choose) </h2>
+            <div class="row-container">
+                <div class="top-row">
 
+                </div>
             </div>
-        </div>
 
-        <h2>Enemies Available to Attack: (Click to Choose)</h2>
-        <div class="row-container">
-            <div class="middle-row">
+            <h2>Enemies Available to Attack: (Click to Choose)</h2>
+            <div class="row-container">
+                <div class="middle-row">
 
+                </div>
             </div>
-        </div>
 
-        <h2>Current Defender</h2> <button class="attack invisible">ATTACK</button> <div class="commentary-box"><p class="commentary"></p></div>
-        <div class="row-container">
-            <div class="bottom-row">
-
+            <h2>Current Defender</h2>
+            <button class="attack invisible">ATTACK</button>
+            <div class="commentary-box">
+                <p class="commentary"></p>
             </div>
-            <div class="defender-captions">
+            <div class="row-container">
+                <div class="bottom-row">
 
+                </div>
+                <div class="defender-captions">
+
+                </div>
             </div>
-        </div>
 
-    </section>
+        </section>
 
     </main>
 
+    <audio id="Win">
+        <source src="./assets/audio/win-laser.wav" type="audio/wav">
+    </audio>
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-crossorigin="anonymous"></script>
-<script src="./assets/script/game.js"></script>
+    <audio id="Lose">
+        <source src="./assets/audio/gameover.wav" type="audio/wav">
+    </audio>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="./assets/script/game.js"></script>
 </body>
 
 </html>
