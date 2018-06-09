@@ -2,7 +2,6 @@
 html {
     font-size: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    background: radial-gradient(circle, white, black);
 }
 
 body {
@@ -10,26 +9,29 @@ body {
     background-size: cover;
 }
 
-h1 {
-    font-size: 4.2rem;
-}
 
-h1 span{
-    font-style: italic;
-}
 
 h2 {
-    display: inline-block;
+    font-family: 'Rajdhani', sans-serif;
     font-size: 2.6rem;
     padding: 1.6rem;
+    padding-bottom: 20px;
 }
 
 header h1 {
-    background-color: whitesmoke;
+    font-size: 4.2rem;
+    font-weight: 700;
+    background-color: black;
+    color: yellow;
+    height: 35px;
     border-radius: 5px;
     text-align: center;
     padding: 2rem;
     border-bottom: 5px solid #0a0406;
+}
+
+header h1 span{
+    font-style: italic;
 }
 
 main {
@@ -116,12 +118,50 @@ main img {
     visibility: hidden;
 }
 
-.commentary-box {
-    display: inline-block;
-    margin-left: 20px;
-    /* height: 50px; */
-    overflow: visible;
+.title-row {
+    height: 50px;
+    /* display: flex; */
+    justify-content: space-between;
 }
+
+h2 #current-defender {
+    flex: 20%;
+}
+
+.attack {
+    width: 150px;
+    position: relative;
+    left: 325px;
+    bottom: 45px;
+    margin-right: 10px;
+    background-color: whitesmoke;
+    border: none;
+    border-radius: 4px;
+    font-size: 2rem;
+}
+
+.attack:active {
+    box-shadow: 2px 2px 2px rgba(188, 71, 204, 0.363);
+}
+
+.attack:hover {
+    font-weight: 600;
+    box-shadow: -2.5px -2.5px 5px rgba(139, 0, 0, 0.466);
+}
+
+.captions {
+    position: relative;
+    left: 325px;
+    bottom: 200px;
+}
+
+.commentary-box {
+    border-radius: 5px;
+    width: 450px;
+}
+
+
+
 
 .restart {
     transition: all 0.5s;

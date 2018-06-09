@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
     />
+    <link href="https://fonts.googleapis.com/css?family=Rajdhani:500" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
 </head>
 
@@ -22,32 +23,39 @@
 
         <section class="game-content">
 
-            <h2>Your Character: (Click to Choose) </h2>
+            <div class="title-row">
+                <h2>Your Character: (Click to Choose) </h2>
+            </div>
             <div class="row-container">
                 <div class="top-row">
 
                 </div>
             </div>
 
-            <h2>Enemies Available to Attack: (Click to Choose)</h2>
+            <div class="title-row">
+                <h2>Enemies Available to Attack: (Click to Choose)</h2>
+            </div>
             <div class="row-container">
                 <div class="middle-row">
 
                 </div>
             </div>
 
-            <h2>Current Defender:</h2>
-            <button class="attack invisible">ATTACK</button>
-            <div class="commentary-box">
-                <p class="commentaryBoxOne"></p>
-                <p class="commentaryBoxTwo"></p>
+            <div class="title-row">
+                <!-- flexed -->
+                <h2 id="current-defender">Current Defender:</h2>
+                <!-- flexed -->
+                <button class="attack invisible">ATTACK</button>
             </div>
             <div class="row-container">
                 <div class="bottom-row">
 
                 </div>
-                <div class="defender-captions">
-
+                <div class="captions">
+                    <div class="commentary-box">
+                        <p class="commentaryBoxOne"></p>
+                        <p class="commentaryBoxTwo"></p>
+                    </div>
                 </div>
             </div>
 

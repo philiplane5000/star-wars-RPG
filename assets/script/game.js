@@ -3,11 +3,11 @@ $('document').ready(function () {
         //INSTANTIATION OF PLAYER CARDS FROM CONSTRUCTOR FUNCTION (BOTTOM OF SCRIPT):
         let yoda   = new CreateCharacter('Yoda', 'yoda', './assets/images/yoda-resized.jpg', 95, 4);
         let leia   = new CreateCharacter('Princess Leia', 'leia', './assets/images/princess-leia-resized.png', 105, 10);
-        let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 135, 5);
+        let anakin = new CreateCharacter('Young Anakin', 'anakin', './assets/images/young-anakin-resized.jpg', 130, 5);
         let sheev  = new CreateCharacter('Sheev Palpatine', 'sheev', './assets/images/sheev-palpatine-resized.png', 120, 7);
 
         //ARRAYS TO HOLD PLAYER OBJECTS
-        let allChars     = [yoda, leia, anakin, sheev];
+        let allChars     = [yoda, leia, sheev, anakin];
         let playerChar   = [];
         let enemyChars   = [];
         let defenderChar = [];
@@ -21,9 +21,9 @@ $('document').ready(function () {
         let restartBtnInterval;
 
         //WIN or LOSE:
-        let imgSrc      = "";
-        let $audioWin   = $('audio#Win')[0];
-        let $audioLose  = $('audio#Lose')[0];
+        let imgSrc     = "";
+        let $audioWin  = $('audio#Win')[0];
+        let $audioLose = $('audio#Lose')[0];
         let win;
 
         //RENDER GAME:
@@ -43,12 +43,10 @@ $('document').ready(function () {
                                 let $playerName = $('<div>').addClass('char-name').html(arr[i].name);
                                 let $playerImage = $('<img>').attr('src', arr[i].imageURL);
                                 let $playerHP = $('<div>').addClass(`hp-${arr[i].className}`).html(`${arr[i].HP}HP`);
-
                                 //PLACE PLAYER ATTRIBUTES ON CARD:
                                 $playerCard.append($playerName);
                                 $playerCard.append($playerImage);
                                 $playerCard.append($playerHP);
-
                                 //APPEND CARDS TO BOARD AT TARGET:
                                 target.append($playerCard);
                         }
@@ -57,12 +55,10 @@ $('document').ready(function () {
                         let $playerName = $('<div>').addClass('char-name').html(arr[0].name);
                         let $playerImage = $('<img>').attr('src', arr[0].imageURL);
                         let $playerHP = $('<div>').addClass(`hp-${arr[0].className}`).html(`${arr[0].HP}HP `);
-
                         //PLACE PLAYER ATTRIBUTES ON CARD:
                         $playerCard.append($playerName);
                         $playerCard.append($playerImage);
                         $playerCard.append($playerHP);
-
                         //APPEND CARDS TO BOARD AT TARGET:
                         target.append($playerCard);
                 }
@@ -71,7 +67,7 @@ $('document').ready(function () {
         function chooseYourCharacter() {
                 //CHOOSE CHARACTER CLICK LISTENERS:
                 $('.yoda').one('click', function () {
-                        updateArrays(yoda, leia, anakin, sheev, undefined);
+                        updateArrays(yoda, leia, sheev, anakin, undefined);
                         clearRow($topRow);
                         cardsToBoard(playerChar, $topRow);
                         cardsToBoard(enemyChars, $middleRow);
@@ -91,7 +87,6 @@ $('document').ready(function () {
                         $('.anakin').addClass('enemy');
                         $('.sheev').addClass('enemy');
                 });
-
                 $('.anakin').one('click', function () {
                         updateArrays(anakin, yoda, leia, sheev, undefined);
                         clearRow($topRow);
@@ -192,9 +187,9 @@ $('document').ready(function () {
                                 }
                         }
                 })
-        }  /*end chooseDefender() */
+        }
 
-        //ATTACK BUTTON CLICK LISTENER:
+        //ATTACK BUTTON CLICK LISTENER AND COMMENTARY UPDATER:
         $('.attack').on('click', function () {
                 //PLAYER:
                 let playerFullName = playerChar[0].name; /*for game updates*/
@@ -206,18 +201,16 @@ $('document').ready(function () {
                 let defenderBaseAttack = defenderChar[0].AP;
 
                 playerChar[0].HP -= defenderChar[0].AP; /*defender attacks*/
-                console.log(`${defenderFullName} attacked you for ${defenderBaseAttack}hp damage!`);
                 defenderChar[0].HP -= playerChar[0].AP; /*player attacks*/
-                console.log(`You attacked ${defenderFullName} for ${playerChar[0].AP}hp damage!`);
 
                 $('.commentaryBoxOne')
                         .html(`${defenderFullName} attacked you for ${defenderBaseAttack}HP damage!`)
-                        .css({ "font-size": "2em", "color": "#862800", "padding-top": "17.5px" });
+                        .css({ "font-size": "2rem", "color": "#862800", "margin-top": ".5rem" });
 
                 $('.commentaryBoxTwo')
                         .html(`You attacked ${defenderFullName} for ${playerChar[0].AP}HP damage!`)
-                        .css({ "font-size": "2em", "color": "green", "padding-top": "5px" });
-                        
+                        .css({ "font-size": "2rem", "color": "green", "margin-top": "2rem" });
+
                 //PLAYER AP INCREASED BY ORIGINAL baseAttack
                 playerChar[0].AP += playerBaseAttack;
 
@@ -275,6 +268,7 @@ $('document').ready(function () {
                 }
         }
 
+        //PROMPT WIN OR LOSE / END GAME SCREEN GENERATOR:
         function promptWinOrLose(e) {
 
                 (e === true) ? $audioWin.play() : $audioLose.play();
@@ -297,14 +291,14 @@ $('document').ready(function () {
                 startFlicker();
                 restartButtonOnClick();
 
-                function startFlicker() {
-                        restartBtnInterval = setInterval(appear, 1000);
-                }
+                        function startFlicker() {
+                                restartBtnInterval = setInterval(appear, 1000);
+                        }
 
-                function appear() {
-                        console.log("every 1s");
-                        $('.restart').toggleClass('restart-hidden');
-                }
+                        function appear() {
+                                console.log("every 1s");
+                                $('.restart').toggleClass('restart-hidden');
+                        }
 
                 function restartButtonOnClick() {
                         //RESTART BUTTON CLICK LISTENER ADDED UPON CREATION:
@@ -339,22 +333,7 @@ $('document').ready(function () {
 
         } /*end promptWinOrLose() */
 
-        //GAME TOOLS: 
-
-        // function customPrompt(PromptText) {
-                
-        //         let str = PromptText.toString();
-
-        //         let $customPrompt = $('<div>')
-        //                 .html(`<h3>${str}</h3>`)
-        //                 .css({'background-color': 'white', 'border-radius': '5px', 'position': 'fixed', 'top': '20vh', 'left': '50vw', 'transform': 'translate(-50%, -50%)'});
-
-        //         $customPrompt.on('click', function() {
-        //                 $(this).hide();
-        //         })
-
-        //         $('body').append($customPrompt);
-        // }
+        //BOARD TOOLS:
 
         function updateArrays(player, enemyOne, enemyTwo, enemyThree, defender) {
                 playerChar = [player];
