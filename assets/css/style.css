@@ -1,3 +1,4 @@
+/* MOSTLY IN ORDER OF PLACE ON SCREEN (TOP TO BOTTOM): */
 
 html {
     font-size: 10px;
@@ -8,8 +9,6 @@ body {
     background: url('../images/moon-bg.jpg') no-repeat fixed top;
     background-size: cover;
 }
-
-
 
 h2 {
     font-family: 'Rajdhani', sans-serif;
@@ -120,7 +119,6 @@ main img {
 
 .title-row {
     height: 50px;
-    /* display: flex; */
     justify-content: space-between;
 }
 
@@ -159,9 +157,6 @@ h2 #current-defender {
     border-radius: 5px;
     width: 450px;
 }
-
-
-
 
 .restart {
     transition: all 0.5s;
