@@ -48,7 +48,6 @@ main {
 }
 
 /* INTERACTIVE CHARACTER ROWS */
-
 .row-container {
     min-width: 875px; /*20px outer margins, 10px inner margins, 200px pictures(x4) = 870px*/
     height: 220px; /*player cards will be 140h 20hCAPTION 20hCHAR-NAME 20hPADDING */
@@ -108,6 +107,8 @@ main img {
     width: 200px;
     border-radius: 5px;
 }
+
+/* OTHER MISC */
 
 .removed {
     display: none;
