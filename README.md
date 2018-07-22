@@ -8,8 +8,10 @@
 * WIN by defeating all enemies.
 * **CHALLENGE:** Play as Yoda and WIN (without dying...)
 
-    [CLICK HERE TO PLAY](https://philiptd5000.github.io/unit-4-game/)
+<hr>
 
+<a href="https://philiptd5000.github.io/unit-4-game/" target="_blank"><h4>[ACTIVE LINK]</h4></a>
 
+<hr>
 
 
